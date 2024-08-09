@@ -101,7 +101,7 @@ public class PaymentController {
     	
     	
     	//기존 홈
-    	List<MovieDto>movieList = movieService.selectAllMovieLive();
+    	List<MovieDto>movieList = movieService.selectAllMovieLive(0);
         List<SupportDto> noticeTop4List = supportService.noticeTop4List();
         
         List<CategoryDto>category = movieService.allCategory();

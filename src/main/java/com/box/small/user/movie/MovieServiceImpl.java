@@ -14,8 +14,8 @@ public class MovieServiceImpl implements MovieService {
 	private MovieDAO dao;
 	
 	@Override
-	public List<MovieDto> selectAllMovieLive() throws SQLException {
-		return dao.selectAllMovieLive();
+	public List<MovieDto> selectAllMovieLive(int cat_no) throws SQLException {
+		return dao.selectAllMovieLive(cat_no);
 	}
 
 	@Override
@@ -62,6 +62,10 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public MovieLikeDto MovieLikeStatus(MovieLikeDto ml) {
 		return dao.MovieLikeStatus(ml);
+	}
+
+	public List<MovieDto> moviePage(Map<String, Object> params) {
+		return dao.moviePage(params);
 	}
 
 

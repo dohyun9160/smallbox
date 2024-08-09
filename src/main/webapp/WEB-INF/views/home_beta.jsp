@@ -85,7 +85,90 @@
    top: 0;
    left: 0
 }
+
+.modal {
+    display: none; /* 기본적으로 모달을 숨김 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+}
+
+/* 모달 콘텐츠 스타일 */
+.modal-content {
+    background-color: transparent;
+    margin: auto;
+    width: 100%;
+    border: none;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.modal-content .close {
+    position: absolute; 
+    top: -40px; 
+    right: 550px; 
+    font-size: 24px; 
+    color: #333; /* 글자 색상 설정 */
+    cursor: pointer; /* 마우스를 올렸을 때 포인터로 변경 */
+    background-color: rgba(255, 255, 255, 0.7); /* 배경 색상 (선택 사항) */
+    border-radius: 50%; /* 원형 배경 (선택 사항) */
+    padding: 5px; /* 여백 추가 */
+}
+
+
+
+
 </style>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function () {
+	    var slides = document.querySelectorAll('.swiper-slide');
+	
+	    slides.forEach(function (slide) {
+	        slide.addEventListener('click', function () {
+	            var slideNumber = slide.getAttribute('data-slide');
+	            handleClick(slideNumber);
+	        });
+	    });
+	
+	    var modal = document.getElementById('myModal1');
+	    var span = document.querySelector('.modal .close');
+	
+	    span.onclick = function() {
+	        modal.style.display = 'none';
+	        document.querySelector('.youtube').src = ''; // 비우기
+	    }
+	
+	    window.onclick = function(event) {
+	        if (event.target === modal) {
+	            modal.style.display = 'none';
+	            document.querySelector('.youtube').src = ''; // 비우기
+	        }
+	    }
+	});
+	
+	function handleClick(slideNumber) {
+	    var modal = document.getElementById("myModal1");
+	    var iframe = modal.querySelector('.youtube');
+
+	    // YouTube 동영상 ID로 URL 생성
+	    var videoUrl = 'https://www.youtube.com/embed/' + slideNumber + '?autoplay=1&mute=1';
+
+	    // iframe의 src 속성에 URL 설정
+	    iframe.src = videoUrl;
+
+	    // 모달 표시
+	    modal.style.display = 'flex';
+	}
+
+</script>
 </head>
 <body>
    <header id="header" class="clearfix">
@@ -95,7 +178,7 @@
       <div class="slider">
          <div class="swiper-container">
             <div class="swiper-wrapper">
-               <div class="swiper-slide ss1">
+               <div class="swiper-slide ss1" data-slide="EiCmnIaj4u8">
                   <div class="container">
                      <div class="row">
                         <h3>InsideOut2</h3>
@@ -103,7 +186,7 @@
                      </div>
                   </div>
                </div>
-               <div class="swiper-slide ss2">
+               <div class="swiper-slide ss2" data-slide="fRkOWmfZjkY">
                   <div class="container">
                      <div class="row">
                         <h3>파묘</h3>
@@ -111,7 +194,7 @@
                      </div>
                   </div>
                </div>
-               <div class="swiper-slide ss3">
+               <div class="swiper-slide ss3" data-slide="4uSn4Dem9i0">
                   <div class="container">
                      <div class="row">
                         <h3>외계+인2부</h3>
@@ -126,6 +209,8 @@
          </div>
       </div>
    </section>
+
+   
    <!-- //banner -->
    <!-- //메인 콘텐츠-->
    <section class="content">
@@ -254,6 +339,13 @@
     </section>
     <!-- //help -->
    </section>
+   <!-- modal -->
+   <div id="myModal1" class="modal">
+	    <div class="modal-content">
+	        <span class="close">&times;</span>
+	       <iframe class ="youtube" width="800" height="600"  ></iframe>
+	    </div>
+	</div>
 
    <!-- //footer -->
    <footer>

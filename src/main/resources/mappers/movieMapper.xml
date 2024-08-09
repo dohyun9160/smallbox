@@ -11,7 +11,14 @@
 	
 	<!-- 상영중인 영화 전체 조회 -->
 	<select id="selectAllMovieLive"	resultType = "com.box.small.user.movie.MovieDto">	
-		select * from movie where mo_status=1
+		select * from movie
+			<where>
+				<if test="cat_no != 0">
+			        cat_no
+			        like concat('%',#{cat_no},'%')
+		        </if>
+				and mo_status=1
+			</where>
 	</select>
 	
 	<!-- 영화 선택 조회 -->
@@ -61,6 +68,18 @@
 		select *
 		from MovieLike
 		where mem_id = #{mem_id} and mo_no = #{mo_no}
+	</select>
+	
+	<select id="moviePage" resultType="com.box.small.user.movie.MovieDto">
+		select * from movie 
+			<where>
+				<if test="cat_no != 0">
+			        cat_no
+			        like concat('%',#{cat_no},'%')
+		        </if>
+				and mo_status=1
+			</where>
+		limit #{startMoiveNo}, #{endMovieNo};
 	</select>
 	
 </mapper>

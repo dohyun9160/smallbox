@@ -30,13 +30,32 @@ public class MovieController {
     private ReviewService reviewService;
 
 	@GetMapping(value = "/user/movie/movieList")
-	public ModelAndView selectAllmovie() throws SQLException {
-		
+	public ModelAndView selectAllmovie(@RequestParam(defaultValue = "1") int pageNum,@RequestParam(defaultValue = "0") int cat_no) throws SQLException {
 		System.out.println("영화 페이지로 이동");
+		
 		ModelAndView mav = new ModelAndView();
-		List<MovieDto>movieList = service.selectAllMovieLive();
+		List<MovieDto>movieListAll = service.selectAllMovieLive(cat_no);
 		List<CategoryDto>category = service.allCategory();
-		mav.addObject("movieList", movieList);
+
+		
+		//영화페이지 계산
+		int startMoiveNo = (pageNum-1)*8;
+		int endMovieNo = pageNum*8;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("startMoiveNo", startMoiveNo);
+		params.put("endMovieNo", endMovieNo);
+		params.put("cat_no", cat_no);
+		
+		List<MovieDto>movieList = service.moviePage(params);
+
+		//페이지 계산
+		PageDTO pageMaker = new PageDTO(pageNum,(int)Math.ceil(movieListAll.size()/8.0));
+//		mav.addObject("pageMaker", pageMaker);
+//		mav.addObject("movieList", movieList);
+		MoviePageList moviePageList = new MoviePageList(pageMaker, movieList);
+		
+		mav.addObject("moviePageList",moviePageList);
 		mav.addObject("category",category);
 		mav.setViewName("/user/movie/movieList");
 		return mav;
@@ -92,18 +111,55 @@ public class MovieController {
 
 	@ResponseBody
 	@RequestMapping(value = "/user/movie/selectCategory", method = RequestMethod.POST)
-	public List<MovieDto> selectCategory(@RequestParam("cat_no") int cat_no) throws SQLException {
-		List<MovieDto> data;
+	public MoviePageList selectCategory(@RequestParam(defaultValue = "1") int pageNum, @RequestParam("cat_no") int cat_no,@RequestParam(defaultValue = " ") String mo_ca) throws SQLException {
+//		List<MovieDto> data;
+//		List<MovieDto>movieListAll = service.selectAllMovieLive();
+		
+		MoviePageList moviePageList = new MoviePageList();
+		List<MovieDto>movieList;
+		
+		
+		//영화페이지 계산
+		int startMoiveNo = (pageNum-1)*8;
+		int endMovieNo = pageNum*8;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("startMoiveNo", startMoiveNo);
+		params.put("endMovieNo", endMovieNo);
+		params.put("cat_no", cat_no);
+		
+		
+		
+		
+		
 	    if (cat_no == 0) {
 	    	System.out.println("전체영화를 선택하셨습니다");
-	    	data = service.selectAllMovieLive();
-	    	System.out.println(data);
+	    	movieList = service.moviePage(params);
+	    	PageDTO pageMaker = new PageDTO(pageNum,(int)Math.ceil(movieList.size()/8.0));
+	    	
+	    	moviePageList.setMovieDtoList(movieList);
+	    	moviePageList.setPageDTO(pageMaker);
+	    	
+	    	System.out.println(movieList);
 	    } else {
 	    	System.out.println("cat_no 가 "  + cat_no +"인 영화를 선택하셨습니다.");
-	    	data = service.selectMovieCategory(cat_no);
-	    	System.out.println(data);
+//	    	data = service.selectMovieCategory(cat_no);
+//	    	System.out.println(data);
+	    	
+	    	params.put("mo_ca", mo_ca);
+	    	movieList = service.moviePage(params);
+
+			//페이지 계산
+			PageDTO pageMaker = new PageDTO(pageNum,(int)Math.ceil(movieList.size()/8.0));
+			moviePageList.setMovieDtoList(movieList);
+	    	moviePageList.setPageDTO(pageMaker);
+	    	System.out.println("st"+pageMaker.getEndPage());
+	    	System.out.println("ed"+pageMaker.getStartPage());
 	    }
-	    return data;
+	    	
+	    System.out.println(moviePageList);	
+	    	
+	    return moviePageList;
 	}
 
 

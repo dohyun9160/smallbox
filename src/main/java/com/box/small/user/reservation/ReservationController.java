@@ -119,18 +119,7 @@ public class ReservationController {
 	@GetMapping(value="/test")
 	public ModelAndView  test() throws SQLException {
 		ModelAndView mav = new ModelAndView();
-		String mem_id = "test"; 
-		List<ReservationDto> reservationList = reservationService.reservationList(mem_id);
-		List<MovieDto> movieList = movieService.selectAllMovie();
-		List<ScheduleDto> schedeuleList = scheduleService.selectAllSchedule();
-		List<TheaterDto> theaterList = theaterService.selectAllTheater();
-		List<ScreenDto> screenList = scheduleService.selectAllScreen();
-		List<TheaterseatDto> theaterseatList = theartseatService.seatListAll();
-		List<ReservationDataListDto> dataList = new ArrayList<>();
-		dataList.add(new ReservationDataListDto(reservationList,movieList,schedeuleList,theaterList,screenList,theaterseatList));
-		
-		System.out.println("리스트 체크 :" + dataList);
-		mav.addObject("dataList", dataList);
+	
 		mav.setViewName("test");
 		return mav;
 	}	

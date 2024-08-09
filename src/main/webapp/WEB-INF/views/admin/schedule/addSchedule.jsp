@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="cat_no" class="form-label">상영날짜</label>
-                                    <input type="text" id="sch_date" name="sch_date" class="form-control" value="${schedule.sch_date}" required>
+                                    <input type="date" id="sch_date" name="sch_date" class="form-control" value="${schedule.sch_date}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="cat_no" class="form-label">시작 시간</label>

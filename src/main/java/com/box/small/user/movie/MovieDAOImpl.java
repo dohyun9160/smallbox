@@ -17,8 +17,8 @@ public class MovieDAOImpl implements MovieDAO{
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<MovieDto> selectAllMovieLive() throws SQLException {
-		return sqlSession.selectList(namespace+".selectAllMovieLive");
+	public List<MovieDto> selectAllMovieLive(int cat_no) throws SQLException {
+		return sqlSession.selectList(namespace+".selectAllMovieLive",cat_no);
 	}
 
 	@Override	
@@ -66,6 +66,10 @@ public class MovieDAOImpl implements MovieDAO{
     public MovieLikeDto MovieLikeStatus(MovieLikeDto ml) {
         return sqlSession.selectOne(namespace + ".MovieLikeStatus", ml);
     }
+
+	public List<MovieDto> moviePage(Map<String, Object> params) {
+		return sqlSession.selectList(namespace+ ".moviePage",params);
+	}
 
 
 }

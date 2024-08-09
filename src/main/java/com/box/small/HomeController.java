@@ -52,7 +52,7 @@ public class HomeController {
       
       ModelAndView mav = new ModelAndView();
       
-      List<MovieDto>movieList = service.selectAllMovieLive();
+      List<MovieDto>movieList = service.selectAllMovieLive(0);
       List<SupportDto> noticeTop4List = supportService.noticeTop4List();
       
       List<CategoryDto>category = service.allCategory();

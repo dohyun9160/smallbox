@@ -8,7 +8,7 @@ public interface MovieDAO {
     
 	List<MovieDto> selectAllMovie() throws SQLException;	//	영화 전체조회
 	
-	List<MovieDto> selectAllMovieLive() throws SQLException;	//	상영중인영화 전체조회
+	List<MovieDto> selectAllMovieLive(int cat_no) throws SQLException;	//	상영중인영화 전체조회
 	
 	MovieDto selectMovie(int mo_no) throws SQLException;	//	영화 선택 조회
 	
@@ -25,4 +25,6 @@ public interface MovieDAO {
 	int updateMovieLike(MovieLikeDto ml);
 
 	MovieLikeDto MovieLikeStatus(MovieLikeDto ml);
+	
+	List<MovieDto> moviePage(Map<String, Object> params);
 }
