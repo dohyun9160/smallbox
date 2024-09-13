@@ -96,8 +96,6 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
 }
 
 /* 모달 콘텐츠 스타일 */
@@ -106,8 +104,8 @@
     margin: auto;
     width: 100%;
     border: none;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+ 	justify-content: center; /* 수평 중앙 정렬 */
 }
 
 .modal-content .close {

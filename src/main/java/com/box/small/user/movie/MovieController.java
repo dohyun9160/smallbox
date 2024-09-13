@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 
 
-@Controller
+@RestController
 public class MovieController {
 
     private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
@@ -109,7 +109,7 @@ public class MovieController {
         return mav;
     }
 
-	@ResponseBody
+	
 	@RequestMapping(value = "/user/movie/selectCategory", method = RequestMethod.POST)
 	public MoviePageList selectCategory(@RequestParam(defaultValue = "1") int pageNum, @RequestParam("cat_no") int cat_no,@RequestParam(defaultValue = " ") String mo_ca) throws SQLException {
 //		List<MovieDto> data;
